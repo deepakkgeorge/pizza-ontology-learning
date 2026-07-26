@@ -7,4 +7,4 @@ Topics to explore:
 - RDF
 - Protégé
 - Reasoning
-- SPARQL
+- SPARQLg
