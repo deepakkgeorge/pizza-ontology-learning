@@ -1,0 +1,240 @@
+@prefix : <https://example.org/biomed/ontology#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vann: <http://purl.org/vocab/vann/> .
+
+#################################################################
+# Ontology Metadata
+#################################################################
+
+<https://example.org/biomed/ontology>
+    rdf:type owl:Ontology ;
+    dcterms:title "Example Biomedical Ontology"@en ;
+    dcterms:description "A small example ontology demonstrating ontology engineering best practices for biomedical entities including genes, proteins, drugs, organisms, diseases, pathways, and biological samples."@en ;
+    dcterms:creator "OpenAI" ;
+    dcterms:created "2026-07-26"^^xsd:date ;
+    dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+    owl:versionIRI <https://example.org/biomed/ontology/1.0.0> ;
+    owl:versionInfo "1.0.0" ;
+    vann:preferredNamespacePrefix "bio" ;
+    vann:preferredNamespaceUri "https://example.org/biomed/ontology#" .
+
+#################################################################
+# Annotation Properties
+#################################################################
+
+dcterms:title rdf:type owl:AnnotationProperty .
+dcterms:description rdf:type owl:AnnotationProperty .
+dcterms:creator rdf:type owl:AnnotationProperty .
+dcterms:created rdf:type owl:AnnotationProperty .
+dcterms:license rdf:type owl:AnnotationProperty .
+
+skos:definition rdf:type owl:AnnotationProperty .
+skos:example rdf:type owl:AnnotationProperty .
+skos:altLabel rdf:type owl:AnnotationProperty .
+
+#################################################################
+# Classes
+#################################################################
+
+:BiomedicalEntity
+    rdf:type owl:Class ;
+    rdfs:label "Biomedical Entity"@en ;
+    skos:definition "A generic entity occurring in biomedical research."@en .
+
+:Gene
+    rdf:type owl:Class ;
+    rdfs:subClassOf :BiomedicalEntity ;
+    rdfs:label "Gene"@en ;
+    skos:definition "A genomic sequence encoding a functional product."@en ;
+    skos:example "TP53" .
+
+:Protein
+    rdf:type owl:Class ;
+    rdfs:subClassOf :BiomedicalEntity ;
+    rdfs:label "Protein"@en ;
+    skos:definition "A translated gene product."@en .
+
+:Drug
+    rdf:type owl:Class ;
+    rdfs:subClassOf :BiomedicalEntity ;
+    rdfs:label "Drug"@en ;
+    skos:definition "A therapeutic or pharmacologically active substance."@en .
+
+:Organism
+    rdf:type owl:Class ;
+    rdfs:subClassOf :BiomedicalEntity ;
+    rdfs:label "Organism"@en ;
+    skos:definition "A living biological organism."@en .
+
+:Disease
+    rdf:type owl:Class ;
+    rdfs:subClassOf :BiomedicalEntity ;
+    rdfs:label "Disease"@en ;
+    skos:definition "A disorder affecting an organism."@en .
+
+:Pathway
+    rdf:type owl:Class ;
+    rdfs:subClassOf :BiomedicalEntity ;
+    rdfs:label "Biological Pathway"@en ;
+    skos:definition "A sequence of interacting biological processes."@en .
+
+:BiologicalSample
+    rdf:type owl:Class ;
+    rdfs:subClassOf :BiomedicalEntity ;
+    rdfs:label "Biological Sample"@en ;
+    skos:definition "A specimen collected for experimental analysis."@en .
+
+#################################################################
+# Class Disjointness
+#################################################################
+
+[
+    rdf:type owl:AllDisjointClasses ;
+    owl:members (
+        :Gene
+        :Protein
+        :Drug
+        :Organism
+        :Disease
+        :Pathway
+        :BiologicalSample
+    )
+] .
+
+#################################################################
+# Object Properties
+#################################################################
+
+:encodes
+    rdf:type owl:ObjectProperty ;
+    rdfs:label "encodes"@en ;
+    skos:definition "Relates a gene to the protein it encodes."@en ;
+    rdfs:domain :Gene ;
+    rdfs:range :Protein ;
+    owl:inverseOf :encodedBy .
+
+:encodedBy
+    rdf:type owl:ObjectProperty ;
+    rdfs:label "encoded by"@en ;
+    rdfs:domain :Protein ;
+    rdfs:range :Gene .
+
+:targets
+    rdf:type owl:ObjectProperty ;
+    rdfs:label "targets"@en ;
+    skos:definition "Relates a drug to its molecular target."@en ;
+    rdfs:domain :Drug ;
+    rdfs:range :Protein .
+
+:participatesIn
+    rdf:type owl:ObjectProperty ;
+    rdfs:label "participates in"@en ;
+    rdfs:domain :Protein ;
+    rdfs:range :Pathway .
+
+:associatedWithDisease
+    rdf:type owl:ObjectProperty ;
+    rdfs:label "associated with disease"@en ;
+    rdfs:domain :Gene ;
+    rdfs:range :Disease .
+
+:hasSample
+    rdf:type owl:ObjectProperty ;
+    rdfs:label "has sample"@en ;
+    rdfs:domain :Organism ;
+    rdfs:range :BiologicalSample .
+
+:derivedFrom
+    rdf:type owl:ObjectProperty ;
+    rdfs:label "derived from"@en ;
+    rdfs:domain :BiologicalSample ;
+    rdfs:range :Organism .
+
+#################################################################
+# Data Properties
+#################################################################
+
+:identifier
+    rdf:type owl:DatatypeProperty ;
+    rdfs:label "identifier"@en ;
+    rdfs:domain :BiomedicalEntity ;
+    rdfs:range xsd:string ;
+    skos:definition "Primary identifier for an entity."@en .
+
+:name
+    rdf:type owl:DatatypeProperty ;
+    rdfs:label "name"@en ;
+    rdfs:domain :BiomedicalEntity ;
+    rdfs:range xsd:string .
+
+:symbol
+    rdf:type owl:DatatypeProperty ;
+    rdfs:label "symbol"@en ;
+    rdfs:domain :Gene ;
+    rdfs:range xsd:string .
+
+:sequenceLength
+    rdf:type owl:DatatypeProperty ;
+    rdfs:label "sequence length"@en ;
+    rdfs:domain :Protein ;
+    rdfs:range xsd:integer .
+
+:molecularWeight
+    rdf:type owl:DatatypeProperty ;
+    rdfs:label "molecular weight"@en ;
+    rdfs:domain :Drug ;
+    rdfs:range xsd:decimal .
+
+:taxonomyId
+    rdf:type owl:DatatypeProperty ;
+    rdfs:label "taxonomy identifier"@en ;
+    rdfs:domain :Organism ;
+    rdfs:range xsd:integer .
+
+:collectionDate
+    rdf:type owl:DatatypeProperty ;
+    rdfs:label "collection date"@en ;
+    rdfs:domain :BiologicalSample ;
+    rdfs:range xsd:date .
+
+#################################################################
+# Example Class Restrictions
+#################################################################
+
+:Gene
+    rdfs:subClassOf
+        [
+            rdf:type owl:Restriction ;
+            owl:onProperty :encodes ;
+            owl:someValuesFrom :Protein
+        ] .
+
+:Protein
+    rdfs:subClassOf
+        [
+            rdf:type owl:Restriction ;
+            owl:onProperty :participatesIn ;
+            owl:someValuesFrom :Pathway
+        ] .
+
+:Drug
+    rdfs:subClassOf
+        [
+            rdf:type owl:Restriction ;
+            owl:onProperty :targets ;
+            owl:someValuesFrom :Protein
+        ] .
+
+:BiologicalSample
+    rdfs:subClassOf
+        [
+            rdf:type owl:Restriction ;
+            owl:onProperty :derivedFrom ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass :Organism
+        ] .
