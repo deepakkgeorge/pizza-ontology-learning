@@ -1,0 +1,15 @@
+@prefix bio: <https://example.org/biomed/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+[] a sh:ValidationReport ;
+    sh:conforms false ;
+    sh:result [ a sh:ValidationResult ;
+            sh:focusNode bio:PROT003 ;
+            sh:resultMessage "Protein sequence length should be at most 1500 residues for this practice KG profile." ;
+            sh:resultPath bio:sequenceLength ;
+            sh:resultSeverity sh:Warning ;
+            sh:sourceConstraintComponent sh:MaxInclusiveConstraintComponent ;
+            sh:sourceShape bio:ProteinSequenceLengthPracticalLimitPropertyShape ;
+            sh:value 1863 ] .
+
