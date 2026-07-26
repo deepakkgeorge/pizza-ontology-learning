@@ -1,0 +1,188 @@
+@prefix ns1: <https://example.org/biomed/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ns1:DRUG001 a ns1:Drug ;
+    ns1:identifier "DRUG001" ;
+    ns1:molecularWeight 499.6 ;
+    ns1:name "Osimertinib" ;
+    ns1:targets ns1:PROT002 .
+
+ns1:DRUG002 a ns1:Drug ;
+    ns1:identifier "DRUG002" ;
+    ns1:molecularWeight 152000.0 ;
+    ns1:name "Cetuximab" ;
+    ns1:targets ns1:PROT002 .
+
+ns1:DRUG003 a ns1:Drug ;
+    ns1:identifier "DRUG003" ;
+    ns1:molecularWeight 581.6 ;
+    ns1:name "Nutlin-3" ;
+    ns1:targets ns1:PROT001 .
+
+ns1:DRUG004 a ns1:Drug ;
+    ns1:identifier "DRUG004" ;
+    ns1:molecularWeight 392.5 ;
+    ns1:name "Ivacaftor" ;
+    ns1:targets ns1:PROT005 .
+
+ns1:DRUG005 a ns1:Drug ;
+    ns1:identifier "DRUG005" ;
+    ns1:molecularWeight 150000.0 ;
+    ns1:name "Etanercept" ;
+    ns1:targets ns1:PROT004 .
+
+ns1:GENE001 a ns1:Gene ;
+    ns1:associatedWithDisease ns1:DIS001 ;
+    ns1:encodes ns1:PROT001 ;
+    ns1:identifier "GENE001" ;
+    ns1:name "Tumor Protein P53" ;
+    ns1:symbol "TP53" .
+
+ns1:GENE002 a ns1:Gene ;
+    ns1:associatedWithDisease ns1:DIS002 ;
+    ns1:encodes ns1:PROT002 ;
+    ns1:identifier "GENE002" ;
+    ns1:name "Epidermal Growth Factor Receptor" ;
+    ns1:symbol "EGFR" .
+
+ns1:GENE003 a ns1:Gene ;
+    ns1:associatedWithDisease ns1:DIS003 ;
+    ns1:encodes ns1:PROT003 ;
+    ns1:identifier "GENE003" ;
+    ns1:name "BRCA1 DNA Repair Associated" ;
+    ns1:symbol "BRCA1" .
+
+ns1:GENE004 a ns1:Gene ;
+    ns1:associatedWithDisease ns1:DIS004 ;
+    ns1:encodes ns1:PROT004 ;
+    ns1:identifier "GENE004" ;
+    ns1:name "Tumor Necrosis Factor" ;
+    ns1:symbol "TNF" .
+
+ns1:GENE005 a ns1:Gene ;
+    ns1:associatedWithDisease ns1:DIS005 ;
+    ns1:encodes ns1:PROT005 ;
+    ns1:identifier "GENE005" ;
+    ns1:name "Cystic Fibrosis Transmembrane Conductance Regulator" ;
+    ns1:symbol "CFTR" .
+
+ns1:DIS001 a ns1:Disease ;
+    ns1:identifier "DIS001" ;
+    ns1:name "Li-Fraumeni Syndrome" .
+
+ns1:DIS002 a ns1:Disease ;
+    ns1:identifier "DIS002" ;
+    ns1:name "Lung Cancer" .
+
+ns1:DIS003 a ns1:Disease ;
+    ns1:identifier "DIS003" ;
+    ns1:name "Breast Cancer" .
+
+ns1:DIS004 a ns1:Disease ;
+    ns1:identifier "DIS004" ;
+    ns1:name "Rheumatoid Arthritis" .
+
+ns1:DIS005 a ns1:Disease ;
+    ns1:identifier "DIS005" ;
+    ns1:name "Cystic Fibrosis" .
+
+ns1:ORG002 a ns1:Organism ;
+    ns1:hasSample ns1:SAMP004 ;
+    ns1:identifier "ORG002" ;
+    ns1:name "Mus musculus" ;
+    ns1:taxonomyId 10090 .
+
+ns1:ORG003 a ns1:Organism ;
+    ns1:hasSample ns1:SAMP005 ;
+    ns1:identifier "ORG003" ;
+    ns1:name "Rattus norvegicus" ;
+    ns1:taxonomyId 10116 .
+
+ns1:PATH001 a ns1:Pathway ;
+    ns1:identifier "PATH001" ;
+    ns1:name "p53 Signaling Pathway" .
+
+ns1:PATH002 a ns1:Pathway ;
+    ns1:identifier "PATH002" ;
+    ns1:name "EGFR Signaling Pathway" .
+
+ns1:PATH003 a ns1:Pathway ;
+    ns1:identifier "PATH003" ;
+    ns1:name "Homologous Recombination" .
+
+ns1:PATH004 a ns1:Pathway ;
+    ns1:identifier "PATH004" ;
+    ns1:name "TNF Signaling Pathway" .
+
+ns1:PATH005 a ns1:Pathway ;
+    ns1:identifier "PATH005" ;
+    ns1:name "CFTR Ion Transport" .
+
+ns1:PROT003 a ns1:Protein ;
+    ns1:identifier "PROT003" ;
+    ns1:name "BRCA1 Protein" ;
+    ns1:participatesIn ns1:PATH003 ;
+    ns1:sequenceLength 1863 .
+
+ns1:SAMP001 a ns1:BiologicalSample ;
+    ns1:collectionDate "2026-01-15"^^xsd:date ;
+    ns1:derivedFrom ns1:ORG001 ;
+    ns1:identifier "SAMP001" ;
+    ns1:name "Blood Sample A" .
+
+ns1:SAMP002 a ns1:BiologicalSample ;
+    ns1:collectionDate "2026-02-10"^^xsd:date ;
+    ns1:derivedFrom ns1:ORG001 ;
+    ns1:identifier "SAMP002" ;
+    ns1:name "Lung Tissue Sample" .
+
+ns1:SAMP003 a ns1:BiologicalSample ;
+    ns1:collectionDate "2026-03-12"^^xsd:date ;
+    ns1:derivedFrom ns1:ORG001 ;
+    ns1:identifier "SAMP003" ;
+    ns1:name "Tumor Biopsy" .
+
+ns1:SAMP004 a ns1:BiologicalSample ;
+    ns1:collectionDate "2026-04-05"^^xsd:date ;
+    ns1:derivedFrom ns1:ORG002 ;
+    ns1:identifier "SAMP004" ;
+    ns1:name "Liver Tissue Sample" .
+
+ns1:SAMP005 a ns1:BiologicalSample ;
+    ns1:collectionDate "2026-05-20"^^xsd:date ;
+    ns1:derivedFrom ns1:ORG003 ;
+    ns1:identifier "SAMP005" ;
+    ns1:name "Kidney Tissue Sample" .
+
+ns1:PROT001 a ns1:Protein ;
+    ns1:identifier "PROT001" ;
+    ns1:name "p53 Protein" ;
+    ns1:participatesIn ns1:PATH001 ;
+    ns1:sequenceLength 393 .
+
+ns1:PROT004 a ns1:Protein ;
+    ns1:identifier "PROT004" ;
+    ns1:name "TNF Protein" ;
+    ns1:participatesIn ns1:PATH004 ;
+    ns1:sequenceLength 233 .
+
+ns1:PROT005 a ns1:Protein ;
+    ns1:identifier "PROT005" ;
+    ns1:name "CFTR Protein" ;
+    ns1:participatesIn ns1:PATH005 ;
+    ns1:sequenceLength 1480 .
+
+ns1:ORG001 a ns1:Organism ;
+    ns1:hasSample ns1:SAMP001,
+        ns1:SAMP002,
+        ns1:SAMP003 ;
+    ns1:identifier "ORG001" ;
+    ns1:name "Homo sapiens" ;
+    ns1:taxonomyId 9606 .
+
+ns1:PROT002 a ns1:Protein ;
+    ns1:identifier "PROT002" ;
+    ns1:name "EGFR Protein" ;
+    ns1:participatesIn ns1:PATH002 ;
+    ns1:sequenceLength 1210 .
+

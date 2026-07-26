@@ -1,0 +1,84 @@
+prefixes:
+  bio: "https://example.org/biomed/ontology#"
+  xsd: "http://www.w3.org/2001/XMLSchema#"
+
+mappings:
+  genes:
+    sources:
+      - ['Dataset/genes.csv~csv']
+    s: "https://example.org/biomed/ontology#$(gene_id)"
+    po:
+      - ["a", "bio:Gene"]
+      - ["bio:identifier", "$(gene_id)"]
+      - ["bio:symbol", "$(symbol)"]
+      - ["bio:name", "$(name)"]
+      - ["bio:encodes", "https://example.org/biomed/ontology#$(protein_id)~iri"]
+      - ["bio:associatedWithDisease", "https://example.org/biomed/ontology#$(disease_id)~iri"]
+
+  proteins:
+    sources:
+      - ['Dataset/protein.csv~csv']
+    s: "https://example.org/biomed/ontology#$(protein_id)"
+    po:
+      - ["a", "bio:Protein"]
+      - ["bio:identifier", "$(protein_id)"]
+      - ["bio:name", "$(name)"]
+      - ["bio:sequenceLength", "$(sequence_length)", "xsd:integer"]
+      - ["bio:participatesIn", "https://example.org/biomed/ontology#$(pathway_id)~iri"]
+
+  drugs:
+    sources:
+      - ['Dataset/drugs.csv~csv']
+    s: "https://example.org/biomed/ontology#$(drug_id)"
+    po:
+      - ["a", "bio:Drug"]
+      - ["bio:identifier", "$(drug_id)"]
+      - ["bio:name", "$(name)"]
+      - ["bio:molecularWeight", "$(molecular_weight)", "xsd:decimal"]
+      - ["bio:targets", "https://example.org/biomed/ontology#$(target_protein_id)~iri"]
+
+  organisms:
+    sources:
+      - ['Dataset/organism.csv~csv']
+    s: "https://example.org/biomed/ontology#$(organism_id)"
+    po:
+      - ["a", "bio:Organism"]
+      - ["bio:identifier", "$(organism_id)"]
+      - ["bio:name", "$(name)"]
+      - ["bio:taxonomyId", "$(taxonomy_id)", "xsd:integer"]
+
+  diseases:
+    sources:
+      - ['Dataset/diseases.csv~csv']
+    s: "https://example.org/biomed/ontology#$(disease_id)"
+    po:
+      - ["a", "bio:Disease"]
+      - ["bio:identifier", "$(disease_id)"]
+      - ["bio:name", "$(name)"]
+
+  pathways:
+    sources:
+      - ['Dataset/pathway.csv~csv']
+    s: "https://example.org/biomed/ontology#$(pathway_id)"
+    po:
+      - ["a", "bio:Pathway"]
+      - ["bio:identifier", "$(pathway_id)"]
+      - ["bio:name", "$(name)"]
+
+  biological_samples:
+    sources:
+      - ['Dataset/biological_samples.csv~csv']
+    s: "https://example.org/biomed/ontology#$(sample_id)"
+    po:
+      - ["a", "bio:BiologicalSample"]
+      - ["bio:identifier", "$(sample_id)"]
+      - ["bio:name", "$(name)"]
+      - ["bio:collectionDate", "$(collection_date)", "xsd:date"]
+      - ["bio:derivedFrom", "https://example.org/biomed/ontology#$(organism_id)~iri"]
+
+  organism_samples:
+    sources:
+      - ['Dataset/biological_samples.csv~csv']
+    s: "https://example.org/biomed/ontology#$(organism_id)"
+    po:
+      - ["bio:hasSample", "https://example.org/biomed/ontology#$(sample_id)~iri"]
