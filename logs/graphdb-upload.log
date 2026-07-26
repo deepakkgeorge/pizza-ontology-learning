@@ -1,0 +1,17 @@
+2026-07-26 22:58:49,596 INFO GraphDB server: http://localhost:7200
+2026-07-26 22:58:49,597 INFO Repository: gene-kg
+2026-07-26 22:58:49,597 INFO Named graph strategy: ontology=http://example.org/graph/ontology
+2026-07-26 22:58:49,597 INFO Named graph strategy: instances=http://example.org/graph/instances
+2026-07-26 22:58:49,597 INFO Named graph strategy: shacl=http://example.org/graph/shacl
+2026-07-26 22:58:49,597 INFO Named graph strategy: metadata=http://example.org/graph/metadata
+2026-07-26 22:58:49,686 INFO Ontology changed: yes
+2026-07-26 22:58:49,686 INFO Ontology upload included
+2026-07-26 22:58:49,749 INFO Old ontology graph deleted
+2026-07-26 22:58:49,872 INFO New ontology graph uploaded
+2026-07-26 22:58:49,872 INFO Deleting old instance graph
+2026-07-26 22:58:49,907 INFO Old instance graph deleted
+2026-07-26 22:58:49,983 INFO New instance graph uploaded
+2026-07-26 22:58:50,077 INFO Ontology graph triple number: 143
+2026-07-26 22:58:50,077 INFO Instance graph triple number: 152
+2026-07-26 22:58:50,077 INFO Upload verification succeeded
+2026-07-26 22:58:50,077 INFO Pipeline completed

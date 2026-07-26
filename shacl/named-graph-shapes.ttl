@@ -1,0 +1,75 @@
+@prefix graph: <http://example.org/graph/> .
+@prefix pipeline: <http://example.org/graph/pipeline#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+pipeline:NamedGraphMetadataShape
+    a sh:NodeShape ;
+    sh:targetClass pipeline:NamedGraph ;
+    sh:property pipeline:NamedGraphRoleShape ;
+    sh:property pipeline:NamedGraphSourcePathShape ;
+    sh:property pipeline:NamedGraphHashShape ;
+    sh:property pipeline:NamedGraphUploadedAtShape ;
+    sh:property pipeline:NamedGraphTripleCountShape ;
+    sh:message "Each managed named graph must have role, source path, SHA-256 hash, upload time, and verified triple count metadata." ;
+    sh:severity sh:Violation .
+
+pipeline:ManagedNamedGraphShape
+    a sh:NodeShape ;
+    sh:targetNode graph:ontology ;
+    sh:targetNode graph:instances ;
+    sh:targetNode graph:shacl ;
+    sh:property [
+        sh:path [ sh:inversePath pipeline:role ] ;
+        sh:maxCount 0 ;
+        sh:message "Managed graph IRIs should be metadata subjects, not metadata values." ;
+    ] .
+
+pipeline:NamedGraphRoleShape
+    a sh:PropertyShape ;
+    sh:path pipeline:role ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:in ( "ontology" "instances" "shacl" ) ;
+    sh:message "Named graph role must be one of ontology, instances, or shacl." ;
+    sh:severity sh:Violation .
+
+pipeline:NamedGraphSourcePathShape
+    a sh:PropertyShape ;
+    sh:path pipeline:filePath ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:minLength 1 ;
+    sh:message "Named graph metadata must include the source file path." ;
+    sh:severity sh:Violation .
+
+pipeline:NamedGraphHashShape
+    a sh:PropertyShape ;
+    sh:path pipeline:sha256 ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:pattern "^[a-f0-9]{64}$" ;
+    sh:message "Named graph metadata must include a lowercase SHA-256 hash." ;
+    sh:severity sh:Violation .
+
+pipeline:NamedGraphUploadedAtShape
+    a sh:PropertyShape ;
+    sh:path pipeline:lastUploadedAt ;
+    sh:datatype xsd:dateTime ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "Named graph metadata must include the last upload timestamp." ;
+    sh:severity sh:Violation .
+
+pipeline:NamedGraphTripleCountShape
+    a sh:PropertyShape ;
+    sh:path pipeline:tripleCount ;
+    sh:datatype xsd:integer ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:minInclusive 0 ;
+    sh:message "Named graph metadata must include a non-negative verified triple count." ;
+    sh:severity sh:Violation .
