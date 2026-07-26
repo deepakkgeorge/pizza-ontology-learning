@@ -1,0 +1,6 @@
+protein_id,name,sequence_length,pathway_id
+PROT001,p53 Protein,393,PATH001
+PROT002,EGFR Protein,1210,PATH002
+PROT003,BRCA1 Protein,1863,PATH003
+PROT004,TNF Protein,233,PATH004
+PROT005,CFTR Protein,1480,PATH005

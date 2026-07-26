@@ -1,0 +1,4 @@
+organism_id,name,taxonomy_id
+ORG001,Homo sapiens,9606
+ORG002,Mus musculus,10090
+ORG003,Rattus norvegicus,10116

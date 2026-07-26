@@ -1,0 +1,6 @@
+drug_id,name,molecular_weight,target_protein_id
+DRUG001,Osimertinib,499.6,PROT002
+DRUG002,Cetuximab,152000,PROT002
+DRUG003,Nutlin-3,581.6,PROT001
+DRUG004,Ivacaftor,392.5,PROT005
+DRUG005,Etanercept,150000,PROT004

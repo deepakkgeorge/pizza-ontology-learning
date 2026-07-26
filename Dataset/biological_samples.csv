@@ -1,0 +1,6 @@
+sample_id,name,collection_date,organism_id
+SAMP001,Blood Sample A,2026-01-15,ORG001
+SAMP002,Lung Tissue Sample,2026-02-10,ORG001
+SAMP003,Tumor Biopsy,2026-03-12,ORG001
+SAMP004,Liver Tissue Sample,2026-04-05,ORG002
+SAMP005,Kidney Tissue Sample,2026-05-20,ORG003
