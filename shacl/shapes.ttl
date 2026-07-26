@@ -1,0 +1,242 @@
+@prefix bio: <https://example.org/biomed/ontology#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+#################################################################
+# Node shapes
+#################################################################
+
+bio:BiomedicalEntityNodeShape
+    a sh:NodeShape ;
+    sh:targetClass bio:BiomedicalEntity ;
+    sh:property bio:EntityIdentifierPropertyShape ;
+    sh:property bio:EntityNamePropertyShape ;
+    sh:message "Every biomedical entity should have one identifier and one display name." ;
+    sh:severity sh:Violation ;
+    bio:criticality "critical" .
+
+bio:GeneNodeShape
+    a sh:NodeShape ;
+    sh:targetClass bio:Gene ;
+    sh:property bio:EntityIdentifierPropertyShape ;
+    sh:property bio:EntityNamePropertyShape ;
+    sh:property bio:GeneSymbolPropertyShape ;
+    sh:property bio:GeneEncodesPropertyShape ;
+    sh:property bio:GeneAssociatedDiseasePropertyShape ;
+    sh:message "Genes should be named, symbolized, linked to one encoded protein, and associated with a disease." ;
+    sh:severity sh:Violation ;
+    bio:criticality "critical" .
+
+bio:ProteinNodeShape
+    a sh:NodeShape ;
+    sh:targetClass bio:Protein ;
+    sh:property bio:EntityIdentifierPropertyShape ;
+    sh:property bio:EntityNamePropertyShape ;
+    sh:property bio:ProteinSequenceLengthPropertyShape ;
+    sh:property bio:ProteinSequenceLengthPracticalLimitPropertyShape ;
+    sh:property bio:ProteinParticipatesInPropertyShape ;
+    sh:message "Proteins should have identifiers, names, sequence lengths, and pathway participation links." ;
+    sh:severity sh:Violation ;
+    bio:criticality "critical" .
+
+bio:DrugNodeShape
+    a sh:NodeShape ;
+    sh:targetClass bio:Drug ;
+    sh:property bio:EntityIdentifierPropertyShape ;
+    sh:property bio:EntityNamePropertyShape ;
+    sh:property bio:DrugMolecularWeightPropertyShape ;
+    sh:property bio:DrugTargetsPropertyShape ;
+    sh:message "Drugs should have identifiers, names, molecular weights, and one or more protein targets." ;
+    sh:severity sh:Violation ;
+    bio:criticality "critical" .
+
+bio:OrganismNodeShape
+    a sh:NodeShape ;
+    sh:targetClass bio:Organism ;
+    sh:property bio:EntityIdentifierPropertyShape ;
+    sh:property bio:EntityNamePropertyShape ;
+    sh:property bio:OrganismTaxonomyIdPropertyShape ;
+    sh:property bio:OrganismHasSamplePropertyShape ;
+    sh:message "Organisms should have identifiers, names, taxonomy IDs, and sample links." ;
+    sh:severity sh:Violation ;
+    bio:criticality "major" .
+
+bio:DiseaseNodeShape
+    a sh:NodeShape ;
+    sh:targetClass bio:Disease ;
+    sh:property bio:EntityIdentifierPropertyShape ;
+    sh:property bio:EntityNamePropertyShape ;
+    sh:message "Diseases should have identifiers and names." ;
+    sh:severity sh:Violation ;
+    bio:criticality "major" .
+
+bio:PathwayNodeShape
+    a sh:NodeShape ;
+    sh:targetClass bio:Pathway ;
+    sh:property bio:EntityIdentifierPropertyShape ;
+    sh:property bio:EntityNamePropertyShape ;
+    sh:message "Pathways should have identifiers and names." ;
+    sh:severity sh:Violation ;
+    bio:criticality "major" .
+
+bio:BiologicalSampleNodeShape
+    a sh:NodeShape ;
+    sh:targetClass bio:BiologicalSample ;
+    sh:property bio:EntityIdentifierPropertyShape ;
+    sh:property bio:EntityNamePropertyShape ;
+    sh:property bio:SampleCollectionDatePropertyShape ;
+    sh:property bio:SampleDerivedFromPropertyShape ;
+    sh:message "Biological samples should have identifiers, names, collection dates, and exactly one source organism." ;
+    sh:severity sh:Violation ;
+    bio:criticality "critical" .
+
+#################################################################
+# Property shapes
+#################################################################
+
+bio:EntityIdentifierPropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:identifier ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:minLength 1 ;
+    sh:message "Entity must have exactly one non-empty string identifier." ;
+    sh:severity sh:Violation ;
+    bio:criticality "critical" .
+
+bio:EntityNamePropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:name ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:minLength 1 ;
+    sh:message "Entity must have exactly one non-empty string name." ;
+    sh:severity sh:Violation ;
+    bio:criticality "major" .
+
+bio:GeneSymbolPropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:symbol ;
+    sh:datatype xsd:string ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:pattern "^[A-Z0-9]+$" ;
+    sh:message "Gene must have exactly one uppercase symbol." ;
+    sh:severity sh:Violation ;
+    bio:criticality "critical" .
+
+bio:GeneEncodesPropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:encodes ;
+    sh:class bio:Protein ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Gene must encode exactly one protein IRI." ;
+    sh:severity sh:Violation ;
+    bio:criticality "critical" .
+
+bio:GeneAssociatedDiseasePropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:associatedWithDisease ;
+    sh:class bio:Disease ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Gene must be associated with at least one disease IRI." ;
+    sh:severity sh:Violation ;
+    bio:criticality "major" .
+
+bio:ProteinSequenceLengthPropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:sequenceLength ;
+    sh:datatype xsd:integer ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:minInclusive 1 ;
+    sh:message "Protein must have exactly one positive integer sequence length." ;
+    sh:severity sh:Violation ;
+    bio:criticality "critical" .
+
+bio:ProteinSequenceLengthPracticalLimitPropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:sequenceLength ;
+    sh:datatype xsd:integer ;
+    sh:maxInclusive 1500 ;
+    sh:message "Protein sequence length should be at most 1500 residues for this practice KG profile." ;
+    sh:severity sh:Warning ;
+    bio:criticality "minor" .
+
+bio:ProteinParticipatesInPropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:participatesIn ;
+    sh:class bio:Pathway ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Protein must participate in at least one pathway IRI." ;
+    sh:severity sh:Violation ;
+    bio:criticality "major" .
+
+bio:DrugMolecularWeightPropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:molecularWeight ;
+    sh:datatype xsd:decimal ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:minInclusive 1 ;
+    sh:message "Drug must have exactly one positive decimal molecular weight." ;
+    sh:severity sh:Violation ;
+    bio:criticality "major" .
+
+bio:DrugTargetsPropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:targets ;
+    sh:class bio:Protein ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Drug must target at least one protein IRI." ;
+    sh:severity sh:Violation ;
+    bio:criticality "critical" .
+
+bio:OrganismTaxonomyIdPropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:taxonomyId ;
+    sh:datatype xsd:integer ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:minInclusive 1 ;
+    sh:message "Organism must have exactly one positive integer taxonomy ID." ;
+    sh:severity sh:Violation ;
+    bio:criticality "major" .
+
+bio:OrganismHasSamplePropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:hasSample ;
+    sh:class bio:BiologicalSample ;
+    sh:minCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Organism must link to at least one biological sample IRI." ;
+    sh:severity sh:Info ;
+    bio:criticality "minor" .
+
+bio:SampleCollectionDatePropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:collectionDate ;
+    sh:datatype xsd:date ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:message "Biological sample must have exactly one xsd:date collection date." ;
+    sh:severity sh:Violation ;
+    bio:criticality "major" .
+
+bio:SampleDerivedFromPropertyShape
+    a sh:PropertyShape ;
+    sh:path bio:derivedFrom ;
+    sh:class bio:Organism ;
+    sh:minCount 1 ;
+    sh:maxCount 1 ;
+    sh:nodeKind sh:IRI ;
+    sh:message "Biological sample must be derived from exactly one organism IRI." ;
+    sh:severity sh:Violation ;
+    bio:criticality "critical" .
