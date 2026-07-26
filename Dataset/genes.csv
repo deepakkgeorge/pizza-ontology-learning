@@ -1,0 +1,6 @@
+gene_id,symbol,name,organism_id,disease_id,protein_id
+GENE001,TP53,Tumor Protein P53,ORG001,DIS001,PROT001
+GENE002,EGFR,Epidermal Growth Factor Receptor,ORG001,DIS002,PROT002
+GENE003,BRCA1,BRCA1 DNA Repair Associated,ORG001,DIS003,PROT003
+GENE004,TNF,Tumor Necrosis Factor,ORG001,DIS004,PROT004
+GENE005,CFTR,Cystic Fibrosis Transmembrane Conductance Regulator,ORG001,DIS005,PROT005
